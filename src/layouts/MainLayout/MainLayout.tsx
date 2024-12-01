@@ -1,17 +1,17 @@
-import { Container } from '@mui/material';
-import React from 'react';
+import { Container } from "@mui/material";
+import React from "react";
 
 interface MainLayoutProps {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  return (
-    <div>
-      MainLayout
-      <Container maxWidth='xl'>{children}</Container>
-    </div>
-  );
+	return (
+		<div>
+			<div>MainLayout</div>
+			<Container maxWidth="xl">{children}</Container>
+		</div>
+	);
 };
 
 export default MainLayout;

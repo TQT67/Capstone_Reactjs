@@ -4,6 +4,7 @@ import fetcher from './fetcher';
 
 export const movieApi = {
   getListMovie: async () => {
+    // eslint-disable-next-line no-useless-catch
     try {
       const response = await fetcher.get<ApiResponse<Movie[]>>('/QuanLyPhim/LayDanhSachPhim', {
         params: {
