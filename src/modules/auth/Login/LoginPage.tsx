@@ -6,7 +6,11 @@ import * as yup from "yup";
 import { userApi } from "../../../apis/user.api";
 import { useAppDispatch } from "../../../store/hooks";
 import { setCurrentUser } from "../../../store/slices/user.slice";
-
+import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
+import { LoadingButton } from "@mui/lab";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../../routes/path";
 const schema = yup.object().shape({
 	taiKhoan: yup.string().required("Tài khoản không được để trống"),
 	matKhau: yup.string().required("Mật khẩu không được để trống"),
@@ -16,7 +20,13 @@ type FormValues = yup.InferType<typeof schema>;
 
 const LoginPage: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { register, handleSubmit } = useForm<FormValues>({
+	const navigate = useNavigate();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<FormValues>({
+		resolver: yupResolver(schema),
 		defaultValues: {
 			taiKhoan: "",
 			matKhau: "",
@@ -25,7 +35,16 @@ const LoginPage: React.FC = () => {
 	const { mutate: handleLogin, isPending } = useMutation({
 		mutationFn: (body: FormValues) => userApi.login(body),
 		onSuccess: (currentUser) => {
+			toast.success("Đăng nhập thành công");
 			dispatch(setCurrentUser(currentUser));
+			if (currentUser.maLoaiNguoiDung == "KhachHang") {
+				navigate(PATH.HOME);
+			}
+			console.log("success", currentUser);
+		},
+		onError: (error: any) => {
+			toast.error(error.message);
+			console.log("error", error);
 		},
 	});
 
@@ -64,6 +83,8 @@ const LoginPage: React.FC = () => {
 							placeholder="Nhập tài khoản"
 							fullWidth
 							variant="outlined"
+							error={!!errors.taiKhoan}
+							helperText={errors.taiKhoan?.message}
 							InputProps={{
 								className: "rounded-lg",
 							}}
@@ -76,12 +97,15 @@ const LoginPage: React.FC = () => {
 							placeholder="Nhập mật khẩu"
 							fullWidth
 							variant="outlined"
+							error={!!errors.matKhau}
+							helperText={errors.matKhau?.message}
 							InputProps={{
 								className: "rounded-lg",
 							}}
 						/>
 
-						<Button
+						<LoadingButton
+							loading={isPending}
 							variant="contained"
 							color="primary"
 							type="submit"
@@ -90,7 +114,7 @@ const LoginPage: React.FC = () => {
 							className="rounded-lg py-2"
 						>
 							Đăng nhập
-						</Button>
+						</LoadingButton>
 					</Stack>
 				</form>
 				<Link href="/auth/register" variant="body2" align="center">

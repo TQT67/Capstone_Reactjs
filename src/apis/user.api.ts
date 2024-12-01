@@ -16,7 +16,7 @@ export const userApi = {
 				}
 			);
 			return response.data.content;
-		} catch (error) {
+		} catch (error: any) {
 			throw error;
 		}
 	},
