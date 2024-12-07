@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../../routes/path";
+import useLogin from "../../../hooks/useLogin";
 const schema = yup.object().shape({
 	taiKhoan: yup.string().required("Tài khoản không được để trống"),
 	matKhau: yup.string().required("Mật khẩu không được để trống"),
@@ -21,6 +22,9 @@ type FormValues = yup.InferType<typeof schema>;
 const LoginPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+
+	const { data } = useLogin();
+
 	const {
 		register,
 		handleSubmit,
@@ -49,7 +53,11 @@ const LoginPage: React.FC = () => {
 	});
 
 	const onSubmit = (formValues: FormValues) => {
-		handleLogin(formValues);
+		const data = {
+			taiKhoan: formValues.taiKhoan.trim(),
+			matKhau: formValues.matKhau.trim(),
+		};
+		handleLogin(data);
 	};
 
 	return (

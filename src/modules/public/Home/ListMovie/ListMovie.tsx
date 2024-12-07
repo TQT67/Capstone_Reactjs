@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const ListMovie: React.FC = () => {
   const navigate = useNavigate();
   const { data, isError, isLoading } = useListMovie();
+  
   const goToDetail = (id:number) => { 
     navigate(`/details/${id}`)
    }
