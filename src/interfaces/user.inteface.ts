@@ -1,14 +1,19 @@
 export interface CurrentUser {
-  taiKhoan: string;
-  hoTen: string;
-  email: string;
-  soDT: string;
-  maNhom: string;
-  maLoaiNguoiDung: string;
-  accessToken: string;
+	taiKhoan: string;
+	hoTen: string;
+	email: string;
+	soDT: string;
+	maNhom: string;
+	maLoaiNguoiDung: string;
+	accessToken: string;
 }
 
 export interface LoginRequestBody {
-  taiKhoan: string;
-  matKhau: string;
+	taiKhoan: string;
+	matKhau: string;
+}
+
+export interface RegisterRequetstBody {
+	taiKhoan: string;
+	matKhau: string;
 }

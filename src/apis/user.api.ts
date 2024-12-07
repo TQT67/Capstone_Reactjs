@@ -20,4 +20,5 @@ export const userApi = {
 			throw error;
 		}
 	},
+	// logout: async(body: )
 };

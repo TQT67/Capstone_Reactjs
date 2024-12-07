@@ -44,7 +44,7 @@ const LoginPage: React.FC = () => {
 		},
 		onError: (error: any) => {
 			toast.error(error.message);
-			console.log("error", error);
+			console.log("error: ", error);
 		},
 	});
 

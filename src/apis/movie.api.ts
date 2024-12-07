@@ -6,11 +6,9 @@ export const movieApi = {
   getListMovie: async () => {
     // eslint-disable-next-line no-useless-catch
     try {
-      const response = await fetcher.get<ApiResponse<Movie[]>>('/QuanLyPhim/LayDanhSachPhim', {
-        params: {
-          maNhom: 'GP01',
-        },
-      });
+      const response = await fetcher.get<ApiResponse<Movie[]>>(
+        `/QuanLyPhim/LayDanhSachPhim`,
+      );
       return response.data.content;
     } catch (error) {
       throw error;

@@ -3,9 +3,13 @@ import { movieApi } from '../apis/movie.api';
 import { QueryKeys } from '../constants/queryKeys';
 import { Movie } from '../interfaces/movie.interface';
 
-type ListUserQueryOptions = Omit<UseQueryOptions<Movie[]>, 'queryKey' | 'queryFn'>;
+type ListMovieQueryOptions = Omit<UseQueryOptions<Movie[]>, 'queryKey' | 'queryFn'>;
 
-const useListMovie = (options?: ListUserQueryOptions) => {
+
+
+const useListMovie = (
+  options?: ListMovieQueryOptions
+) => {
   const queryResult = useQuery({
     queryKey: [QueryKeys.LIST_MOVIE],
     queryFn: () => movieApi.getListMovie(),

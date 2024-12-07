@@ -5,7 +5,7 @@ import { MainLayout } from "../layouts/MainLayout";
 import { LoginPage } from "../modules/auth/Login";
 import { HomePage } from "../modules/public/Home";
 import { PATH } from "./path";
-import RegisterPage from "../modules/auth/Register";
+import DetailMovie from "../modules/public/Home/Detail/DetailMovie";
 
 const useRouteElements = () => {
 	const routes = useRoutes([
@@ -18,6 +18,14 @@ const useRouteElements = () => {
 			),
 		},
 		{
+			path: PATH.DETAILS,
+			element: (
+				<MainLayout>
+					<DetailMovie />
+				</MainLayout>
+			),
+		},
+		{
 			path: PATH.AUTH.ROOT,
 			element: <Outlet />,
 			children: [
@@ -26,14 +34,6 @@ const useRouteElements = () => {
 					element: (
 						<AuthLayout>
 							<LoginPage />
-						</AuthLayout>
-					),
-				},
-				{
-					path: PATH.AUTH.REGISTER,
-					element: (
-						<AuthLayout>
-							<RegisterPage />
 						</AuthLayout>
 					),
 				},
