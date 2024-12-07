@@ -4,14 +4,12 @@ import { movieDetailApi } from '../apis/detailMovie';
 import { Content } from '../interfaces/detailMovie.interface';
 import { useParams } from 'react-router-dom';
 
-type ListMovieQueryOptions = Omit<UseQueryOptions<Content[]>, 'queryKey' | 'queryFn'>;
+type DetailMovieQueryOptions = Omit<UseQueryOptions<Content>, 'queryKey' | 'queryFn'>;
 
-
-
-const useDetailMovie = (options?: ListMovieQueryOptions) => {
+const useDetailMovie = (options?: DetailMovieQueryOptions) => {
   const { id } = useParams<{ id: string }>();
   const queryResult = useQuery({
-    queryKey: [QueryKeys.MOVIE_DETAILS],
+    queryKey: [QueryKeys.MOVIE_DETAILS, id],
     queryFn: () => movieDetailApi.getDetailMovie(id!),
     enabled: !!id,
     ...options,

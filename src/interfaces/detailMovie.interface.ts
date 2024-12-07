@@ -10,7 +10,7 @@ export interface Content {
     hot: boolean
     dangChieu: boolean
     sapChieu: boolean
-    ngayKhoiChieu: string
+    ngayKhoiChieu: Date
     danhGia: number
   }
   
@@ -37,4 +37,4 @@ export interface Content {
     giaVe: number
     thoiLuong: number
   }
-  
+

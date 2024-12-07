@@ -1,108 +1,60 @@
 import { Grid, Typography, Button, Box, CardContent, Card, CardMedia } from "@mui/material";
 import React from "react";
-// import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
-// import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-// import { orange } from "@mui/material/colors";
 import useDetailMovie from "../../../../hooks/useDetailMovie";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const DetailMovie: React.FC = () => {
-    const { data, isError, isLoading } = useDetailMovie();
-    console.log(data)
-    const cinemaSchedules = [
-        {
-          cinema: "Galaxy Kinh Dương Vương",
-          type: "2D Phụ Đề",
-          times: ["16:15", "17:15", "18:15", "19:15", "20:15", "21:15", "22:00", "22:30"],
-        },
-        {
-          cinema: "Galaxy Quang Trung",
-          type: "2D Phụ Đề",
-          times: ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"],
-        },
-        {
-          cinema: "Galaxy Bến Tre",
-          type: "2D Phụ Đề",
-          times: ["18:00", "19:00", "20:00", "21:00"],
-        },
-        {
-          cinema: "Galaxy Mipec Long Biên",
-          type: "2D Phụ Đề",
-          times: ["17:15", "18:15", "19:15", "20:15", "21:15", "22:15"],
-        },
-      ];
+    const { data, isLoading, error } = useDetailMovie();
+
+    if (isLoading) return (
+        <Box sx={{ display: 'flex' }}>
+            <CircularProgress />
+        </Box>
+    );
+    if (error) return <Typography>Error loading data!</Typography>;
+
     return (
-        <Box sx={{ backgroundColor: "#1c1c1e", padding: "60px" }}>
+        <Box sx={{ backgroundColor: "#1c1c1e", margin: "60px" }}>
             <Grid container spacing={3}>
                 {/* Poster */}
-                
                 <Grid item xs={12} md={3}>
                     <Card sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
                         <CardMedia
                             component="img"
                             image={data?.hinhAnh}
-                            alt="Moana 2 Poster"
+                            alt={data?.tenPhim}
                             sx={{ borderRadius: "10px" }}
                         />
                     </Card>
                 </Grid>
-
+                if (isLoading) return (
+        <Box sx={{ display: 'flex' }}>
+            <CircularProgress />
+        </Box>
+    );
+    if (error) return <Typography>Error loading data!</Typography>;
                 {/* Details */}
                 <Grid item xs={12} md={8}>
-                    <Card
-                        sx={{
-                            backgroundColor: "transparent",
-                            boxShadow: "none",
-                            color: "#fff",
-                        }}
-                    >
+                    <Card sx={{ backgroundColor: "transparent", boxShadow: "none", color: "#fff" }}>
                         <CardContent>
                             <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
                                 {data?.tenPhim}
                             </Typography>
                             <Typography variant="body1" sx={{ mb: 1 }}>
-                                <strong>Thể loại:</strong> Hoạt hình Mỹ
-                            </Typography>
-                            <Typography variant="body1" sx={{ mb: 1 }}>
-                                <strong>Thời lượng:</strong> 99 phút
-                            </Typography>
-                            <Typography variant="body1" sx={{ mb: 1 }}>
-                                <strong>Đạo diễn:</strong> David G. Derrick Jr.
-                            </Typography>
-                            <Typography variant="body1" sx={{ mb: 1 }}>
-                                <strong>Diễn viên:</strong> Auli'i Cravalho, Dwayne Johnson,
-                                Alan Tudyk
+                                <strong>Thời lượng:</strong> {data?.danhGia} phút
                             </Typography>
                             <Typography variant="body1" sx={{ mb: 3 }}>
-                                <strong>Khởi chiếu:</strong> 29/11/2024
+                                <strong>Khởi chiếu:</strong>{" "}
+                                {data?.ngayKhoiChieu ? new Date(data.ngayKhoiChieu).toLocaleDateString("vi-VN") : "N/A"}
                             </Typography>
                             <Typography variant="body2" sx={{ mb: 3 }}>
-                                Moana bước vào cuộc hành trình đến những vùng biển đã mất tích
-                                ở châu Đại Dương, theo tiếng gọi của tổ tiên.
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                sx={{
-                                    color: "red",
-                                    fontWeight: "bold",
-                                    mb: 3,
-                                }}
-                            >
-                                Kiểm duyệt: P - Phim được phép phổ biến đến người xem ở mọi độ
-                                tuổi.
+                                {data?.moTa}
                             </Typography>
                             <Box sx={{ display: "flex", gap: 2 }}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    sx={{ textTransform: "none" }}
-                                >
+                                <Button variant="contained" color="primary" sx={{ textTransform: "none" }}>
                                     Đặt vé
                                 </Button>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    sx={{ textTransform: "none" }}
-                                >
+                                <Button variant="outlined" color="primary" sx={{ textTransform: "none" }}>
                                     Xem trailer
                                 </Button>
                             </Box>
@@ -111,74 +63,51 @@ const DetailMovie: React.FC = () => {
                 </Grid>
             </Grid>
 
-            {/* Schedule */}
-            <Box
-                sx={{
-                    marginTop: "30px",
-                    display: "flex",
-                    justifyContent: "space-around",
-                    padding: "10px",
-                    backgroundColor: "#2b2b2d",
-                    borderRadius: "10px",
-                }}
-            >
-                {["05 Thứ năm", "06 Thứ sáu", "07 Thứ bảy"].map((date, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            textAlign: "center",
-                            color: "#fff",
-                        }}
-                    >
-                        <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                            Th. {date.split(" ")[0]}
-                        </Typography>
-                        <Typography variant="body2">{date.split(" ")[1]}</Typography>
-                    </Box>
-                ))}
-            </Box>
             <Box sx={{ backgroundColor: "#1c1c1e", padding: "20px" }}>
-                {cinemaSchedules.map((cinema, index) => (
+                {data?.heThongRapChieu.map((cinema) => (
                     <Box
-                        key={index}
+                        key={cinema.maHeThongRap}
                         sx={{
-                            
                             borderRadius: "8px",
                             padding: "15px",
                             marginBottom: "20px",
                         }}
                     >
-                        {/* Cinema Name */}
-                        <Typography variant="h6" sx={{color:'#fff', fontWeight: "bold", marginBottom: "10px" }}>
-                            {cinema.cinema}
+                        <Typography variant="h6" sx={{ color: '#fff', fontWeight: "bold", marginBottom: "10px" }}>
+                            {cinema.tenHeThongRap}
                         </Typography>
-                        {/* Type */}
-                        <Typography
-                            variant="body1"
-                            sx={{ color: "#fff", fontSize: "14px", marginBottom: "15px" }}
-                        >
-                            {cinema.type}
-                        </Typography>
-                        {/* Showtimes */}
                         <Grid container spacing={2}>
-                            {cinema.times.map((time, idx) => (
-                                <Grid item key={idx}>
-                                    <Button
-                                        variant="outlined"
-                                        sx={{
-                                            borderColor: "#ccc",
-                                            color: "#fff",
-                                            textTransform: "none",
-                                            borderRadius: "5px",
-                                            padding: "5px 15px",
-                                            "&:hover": {
-                                                borderColor: "#555",
-                                                color: "#000",
-                                            },
-                                        }}
-                                    >
-                                        {time}
-                                    </Button>
+                            {cinema.cumRapChieu.map((rap) => (
+                                <Grid item xs={12} key={rap.maCumRap}>
+                                    <Typography variant="body1" sx={{ color: "#fff", mb: 1 }}>
+                                        {rap.tenCumRap} - {rap.diaChi}
+                                    </Typography>
+                                    <Grid container spacing={1}>
+                                        {rap.lichChieuPhim.map((lich) => (
+                                            <Grid item key={lich.maLichChieu}>
+                                                <Button
+                                                    variant="outlined"
+                                                    sx={{
+                                                        borderColor: "#ccc",
+                                                        color: "#fff",
+                                                        textTransform: "none",
+                                                        borderRadius: "5px",
+                                                        padding: "5px 15px",
+                                                        "&:hover": {
+                                                            borderColor: "#555",
+                                                            color: "#555",
+                                                            backgroundColor: "#fff",
+                                                        },
+                                                    }}
+                                                >
+                                                    {new Date(lich.ngayChieuGioChieu).toLocaleTimeString("vi-VN", {
+                                                        hour: "2-digit",
+                                                        minute: "2-digit",
+                                                    })}
+                                                </Button>
+                                            </Grid>
+                                        ))}
+                                    </Grid>
                                 </Grid>
                             ))}
                         </Grid>
@@ -186,7 +115,7 @@ const DetailMovie: React.FC = () => {
                 ))}
             </Box>
         </Box>
-    )
-}
+    );
+};
 
 export default DetailMovie;
