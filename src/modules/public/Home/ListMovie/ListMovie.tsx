@@ -2,9 +2,14 @@ import React from 'react';
 
 import { Button, Grid, Typography } from '@mui/material';
 import useListMovie from '../../../../hooks/useListMovie';
+import { useNavigate } from 'react-router-dom';
 
 const ListMovie: React.FC = () => {
+  const navigate = useNavigate();
   const { data, isError, isLoading } = useListMovie();
+  const goToDetail = (id:number) => { 
+    navigate(`/details/${id}`)
+   }
   return (
     <Grid container spacing={3}>
       {!isLoading &&
@@ -21,7 +26,7 @@ const ListMovie: React.FC = () => {
             <Typography noWrap paragraph variant='body2'>
               {movie.moTa}
             </Typography>
-            <Button size='large' fullWidth variant='contained'>
+            <Button onClick={()=>goToDetail(movie.maPhim)} size='large' fullWidth variant='contained'>
               Xem chi tiết
             </Button>
           </Grid>

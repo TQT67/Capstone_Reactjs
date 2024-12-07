@@ -5,6 +5,7 @@ import { MainLayout } from '../layouts/MainLayout';
 import { LoginPage } from '../modules/auth/Login';
 import { HomePage } from '../modules/public/Home';
 import { PATH } from './path';
+import DetailMovie from '../modules/public/Home/Detail/DetailMovie';
 
 const useRouteElements = () => {
   const routes = useRoutes([
@@ -13,6 +14,14 @@ const useRouteElements = () => {
       element: (
         <MainLayout>
           <HomePage />
+        </MainLayout>
+      ),
+    },
+    {
+      path: PATH.DETAILS,
+      element: (
+        <MainLayout>
+          <DetailMovie />
         </MainLayout>
       ),
     },

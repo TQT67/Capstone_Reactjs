@@ -7,7 +7,7 @@ export const PATH = {
     RESET_PASSWORD: '/auth/reset-password',
   },
   HOME: '/',
-  DETAILS: '/details',
+  DETAILS: '/details/:id',
   ADMIN: {
     ROOT: '/admin',
     USERS: '/admin/users',
