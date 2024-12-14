@@ -8,6 +8,7 @@ export const PATH = {
 	},
 	HOME: "/",
 	DETAILS: "/details/:id",
+	TICKETROOM: "/ticketRoom/:id",
 	ADMIN: {
 		ROOT: "/admin",
 		USERS: "/admin/users",

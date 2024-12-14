@@ -9,10 +9,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import useDetailMovie from "../../../../hooks/useDetailMovie";
-import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 const DetailMovie: React.FC = () => {
-	const { data, isLoading, error } = useDetailMovie();
+	const { data, jsx } = useDetailMovie();
+
+	const navigate = useNavigate();
+
+	const goToTicketRoom = (id: string) => {
+		navigate(`/ticketRoom/${id}`);
+	};
+
+	if (jsx) return jsx;
 
 	return (
 		<Box sx={{ backgroundColor: "#1c1c1e", margin: "60px" }}>
@@ -33,6 +41,8 @@ const DetailMovie: React.FC = () => {
 						/>
 					</Card>
 				</Grid>
+
+				{/* Details */}
 				<Grid item xs={12} md={8}>
 					<Card
 						sx={{
@@ -67,7 +77,11 @@ const DetailMovie: React.FC = () => {
 								<Button
 									variant="contained"
 									color="primary"
-									sx={{ textTransform: "none" }}
+									href="#seat-map-section"
+									sx={{
+										textTransform: "none",
+										scrollBehavior: "smooth",
+									}}
 								>
 									Đặt vé
 								</Button>
@@ -84,7 +98,10 @@ const DetailMovie: React.FC = () => {
 				</Grid>
 			</Grid>
 
-			<Box sx={{ backgroundColor: "#1c1c1e", padding: "20px" }}>
+			<Box
+				sx={{ backgroundColor: "#1c1c1e", padding: "20px" }}
+				id="seat-map-section"
+			>
 				{data?.heThongRapChieu.map((cinema) => (
 					<Box
 						key={cinema.maHeThongRap}
@@ -117,6 +134,11 @@ const DetailMovie: React.FC = () => {
 										{rap.lichChieuPhim.map((lich) => (
 											<Grid item key={lich.maLichChieu}>
 												<Button
+													onClick={() =>
+														goToTicketRoom(
+															lich.maLichChieu
+														)
+													}
 													variant="outlined"
 													sx={{
 														borderColor: "#ccc",

@@ -6,7 +6,7 @@ import { LoginPage } from "../modules/auth/Login";
 import { HomePage } from "../modules/public/Home";
 import { PATH } from "./path";
 import DetailMovie from "../modules/public/Home/Detail/DetailMovie";
-import RegisterPage from "../modules/auth/Register";
+import TicketRoom from "../modules/public/Home/TicketRoom/TicketRoom";
 
 const useRouteElements = () => {
 	const routes = useRoutes([
@@ -27,6 +27,14 @@ const useRouteElements = () => {
 			),
 		},
 		{
+			path: PATH.TICKETROOM,
+			element: (
+				<MainLayout>
+					<TicketRoom />
+				</MainLayout>
+			),
+		},
+		{
 			path: PATH.AUTH.ROOT,
 			element: <Outlet />,
 			children: [
@@ -35,14 +43,6 @@ const useRouteElements = () => {
 					element: (
 						<AuthLayout>
 							<LoginPage />
-						</AuthLayout>
-					),
-				},
-				{
-					path: PATH.AUTH.REGISTER,
-					element: (
-						<AuthLayout>
-							<RegisterPage />
 						</AuthLayout>
 					),
 				},

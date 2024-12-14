@@ -3,6 +3,7 @@ import { QueryKeys } from '../constants/queryKeys';
 import { movieDetailApi } from '../apis/detailMovie';
 import { Content } from '../interfaces/detailMovie.interface';
 import { useParams } from 'react-router-dom';
+import useQueryStatus from './useQueryStatus';
 
 type DetailMovieQueryOptions = Omit<UseQueryOptions<Content>, 'queryKey' | 'queryFn'>;
 
@@ -14,7 +15,11 @@ const useDetailMovie = (options?: DetailMovieQueryOptions) => {
     enabled: !!id,
     ...options,
   });
-  return queryResult;
+
+  const status = useQueryStatus({ queryResult });
+
+  return { ...queryResult, ...status };
+  
 };
 
 export default useDetailMovie;
