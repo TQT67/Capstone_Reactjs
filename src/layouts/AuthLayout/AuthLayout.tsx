@@ -1,16 +1,19 @@
-import React from 'react';
+import React from "react";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer";
 
 interface AuthLayoutProps {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
-  return (
-    <div>
-      AuthLayout
-      {children}
-    </div>
-  );
+	return (
+		<div>
+			<Header />
+			{children}
+			<Footer />
+		</div>
+	);
 };
 
 export default AuthLayout;
