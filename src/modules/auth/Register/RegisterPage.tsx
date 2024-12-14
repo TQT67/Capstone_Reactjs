@@ -45,7 +45,7 @@ const RegisterPage: React.FC = () => {
 					Đăng ký
 				</Typography>
 
-				<form onSubmit={handleSubmit(onSubmit)} className="w-full">
+				<form onSubmit={handleSubmit()} className="w-full">
 					<Stack spacing={3}>
 						<TextField
 							{...register("taiKhoan")}

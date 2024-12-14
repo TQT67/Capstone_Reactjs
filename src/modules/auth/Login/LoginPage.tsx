@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
 		onSuccess: (currentUser) => {
 			toast.success("Đăng nhập thành công");
 			dispatch(setCurrentUser(currentUser));
-			if (currentUser.maLoaiNguoiDung == "KhachHang") {
+			if (currentUser.maLoaiNguoiDung == "khachhang") {
 				navigate(PATH.HOME);
 			}
 			console.log("success", currentUser);

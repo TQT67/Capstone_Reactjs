@@ -1,10 +1,4 @@
-import {
-	AppBar,
-	Divider,
-	IconButton,
-	Toolbar,
-	Typography,
-} from "@mui/material";
+import { AppBar, Divider, Toolbar, Typography } from "@mui/material";
 import React from "react";
 
 const Header: React.FC = () => {

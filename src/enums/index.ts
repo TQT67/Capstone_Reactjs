@@ -1,8 +1,8 @@
 export enum ROLES {
-	CUSTOMER = "KhachHang",
-	ADMIN = "QuanTri",
+	CUSTOMER = "khachhang",
+	ADMIN = "quantri",
 }
 
 export enum DATE {
-  KHOICHIEU = 'DD/MM/YY'
+	KHOICHIEU = "DD/MM/YY",
 }
