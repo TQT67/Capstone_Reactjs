@@ -1,17 +1,19 @@
-import { Grid, Typography, Button, Box, CardContent, Card, CardMedia } from "@mui/material";
+import { Grid, Typography, Button, Box, CardContent, Card, CardMedia} from "@mui/material";
 import React from "react";
 import useDetailMovie from "../../../../hooks/useDetailMovie";
-import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate } from "react-router-dom";
 
 const DetailMovie: React.FC = () => {
-    const { data, isLoading, error } = useDetailMovie();
+    const { data, jsx } = useDetailMovie();
 
-    if (isLoading) return (
-        <Box sx={{ display: 'flex' }}>
-            <CircularProgress />
-        </Box>
-    );
-    if (error) return <Typography>Error loading data!</Typography>;
+    const navigate = useNavigate();
+
+    const goToTicketRoom = (id:string) => {
+        navigate(`/ticketRoom/${id}`)
+    }
+
+
+   if(jsx) return jsx
 
     return (
         <Box sx={{ backgroundColor: "#1c1c1e", margin: "60px" }}>
@@ -27,12 +29,7 @@ const DetailMovie: React.FC = () => {
                         />
                     </Card>
                 </Grid>
-                if (isLoading) return (
-        <Box sx={{ display: 'flex' }}>
-            <CircularProgress />
-        </Box>
-    );
-    if (error) return <Typography>Error loading data!</Typography>;
+
                 {/* Details */}
                 <Grid item xs={12} md={8}>
                     <Card sx={{ backgroundColor: "transparent", boxShadow: "none", color: "#fff" }}>
@@ -51,7 +48,12 @@ const DetailMovie: React.FC = () => {
                                 {data?.moTa}
                             </Typography>
                             <Box sx={{ display: "flex", gap: 2 }}>
-                                <Button variant="contained" color="primary" sx={{ textTransform: "none" }}>
+                                <Button variant="contained" color="primary"
+                                href="#seat-map-section"
+                                sx={{ 
+                                    textTransform: 'none',
+                                    scrollBehavior: 'smooth'
+                                }}>
                                     Đặt vé
                                 </Button>
                                 <Button variant="outlined" color="primary" sx={{ textTransform: "none" }}>
@@ -63,7 +65,7 @@ const DetailMovie: React.FC = () => {
                 </Grid>
             </Grid>
 
-            <Box sx={{ backgroundColor: "#1c1c1e", padding: "20px" }}>
+            <Box sx={{ backgroundColor: "#1c1c1e", padding: "20px" }} id="seat-map-section">
                 {data?.heThongRapChieu.map((cinema) => (
                     <Box
                         key={cinema.maHeThongRap}
@@ -85,7 +87,7 @@ const DetailMovie: React.FC = () => {
                                     <Grid container spacing={1}>
                                         {rap.lichChieuPhim.map((lich) => (
                                             <Grid item key={lich.maLichChieu}>
-                                                <Button
+                                                <Button onClick={() => goToTicketRoom(lich.maLichChieu)}
                                                     variant="outlined"
                                                     sx={{
                                                         borderColor: "#ccc",

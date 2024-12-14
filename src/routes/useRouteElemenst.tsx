@@ -6,6 +6,7 @@ import { LoginPage } from '../modules/auth/Login';
 import { HomePage } from '../modules/public/Home';
 import { PATH } from './path';
 import DetailMovie from '../modules/public/Home/Detail/DetailMovie';
+import TicketRoom from '../modules/public/Home/TicketRoom/TicketRoom';
 
 const useRouteElements = () => {
   const routes = useRoutes([
@@ -21,7 +22,15 @@ const useRouteElements = () => {
       path: PATH.DETAILS,
       element: (
         <MainLayout>
-          <DetailMovie />
+          <DetailMovie/>
+        </MainLayout>
+      ),
+    },
+    {
+      path: PATH.TICKETROOM,
+      element: (
+        <MainLayout>
+          <TicketRoom/>
         </MainLayout>
       ),
     },
