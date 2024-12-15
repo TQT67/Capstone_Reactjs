@@ -5,4 +5,5 @@ export const QueryKeys = {
 	TICKET_ROOM: "TICKET_ROOM",
 	LIST_CINEMA: "LIST_CINEMA",
 	LOGIN: "LOGIN",
+	LIST_BANNER: "listBanner",
 };

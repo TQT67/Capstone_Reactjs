@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import * as Yup from "yup";
 import useTicketRoom from "../../../../hooks/useTicketRoom";
+import { useSelector } from "react-redux";
+import { CurrentUser } from "../../../../interfaces/user.inteface";
 
 const TicketRoom: React.FC = () => {
   const { data, jsx } = useTicketRoom();
-
+  const { currentUser } = useSelector((state:CurrentUser)=> state.user)
   const info = data?.thongTinPhim;
   const seat = data?.danhSachGhe;
 
@@ -35,14 +37,14 @@ const TicketRoom: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (!currentUser) {
+      alert("Vui lòng đăng nhập để đặt vé!");
+      return;
+    }
     try {
-      // Validate total using Yup
       await validationSchema.validate({ total });
-
-      // Nếu hợp lệ, hiển thị thông báo thành công
       alert("Đặt vé thành công!");
     } catch (error) {
-      // Nếu không hợp lệ, hiển thị lỗi
       if (error instanceof Yup.ValidationError) {
         alert(error.message);
       }

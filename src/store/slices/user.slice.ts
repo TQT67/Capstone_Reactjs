@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CurrentUser } from '../../interfaces/user.inteface';
+import { CurrentUser  } from '../../interfaces/user.inteface';
 
 interface UserState {
   currentUser: CurrentUser | null;
@@ -21,6 +21,7 @@ const userSlice = createSlice({
       localStorage.clear();
       state.currentUser = null;
     },
+
   },
 });
 

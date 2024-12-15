@@ -37,9 +37,6 @@ const DetailMovie: React.FC = () => {
                             <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
                                 {data?.tenPhim}
                             </Typography>
-                            <Typography variant="body1" sx={{ mb: 1 }}>
-                                <strong>Thời lượng:</strong> {data?.danhGia} phút
-                            </Typography>
                             <Typography variant="body1" sx={{ mb: 3 }}>
                                 <strong>Khởi chiếu:</strong>{" "}
                                 {data?.ngayKhoiChieu ? new Date(data.ngayKhoiChieu).toLocaleDateString("vi-VN") : "N/A"}

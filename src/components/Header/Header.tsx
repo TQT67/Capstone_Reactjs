@@ -1,73 +1,80 @@
-import { AppBar, Divider, Toolbar, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import {
+	AppBar,
+	Divider,
+	Menu,
+	MenuItem,
+	Toolbar,
+	Typography,
+	Avatar,
+	IconButton,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { CurrentUser } from "../../interfaces/user.inteface";
+import { logout } from "../../store/slices/user.slice";
+import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
+	const {currentUser} = useSelector((state:CurrentUser)=>state.user)
+	const dispatch=useDispatch()
+	const navigate = useNavigate()
+	const goToLogin = () => {
+		navigate(`/auth/login`)
+	}
+	const goToRegister = () => {
+		navigate(`/auth/register`)
+	}
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+	const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget); // Mở menu
+	};
+
+	const handleMenuClose = () => {
+		dispatch(logout()); 
+		setAnchorEl(null); 
+	};
+
 	return (
-		<AppBar
-			position="static"
-			className=" shadow-none border-b border-gray-200"
-		>
+		<AppBar position="static" className="shadow-none border-b border-gray-200">
 			<Toolbar className="flex justify-between items-center">
 				<div className="flex items-center">
-					<img
-						src="path/to/logo.png"
-						alt="Cybersoft Logo"
-						className="h-12"
-					/>
-					<div className="ml-2">
-						<Typography
-							variant="h6"
-							className="text-black font-bold"
-						>
-							CYBERSOFT
-						</Typography>
-						<Typography variant="caption" className="text-gray-500">
-							ĐÀO TẠO CHUYÊN GIA LẬP TRÌNH
-						</Typography>
-					</div>
-				</div>
-
-				<div className="hidden md:flex space-x-8">
-					<Typography
-						variant="body1"
-						className="text-black cursor-pointer hover:text-gray-700"
-					>
-						Lịch Chiếu
-					</Typography>
-					<Typography
-						variant="body1"
-						className="text-black cursor-pointer hover:text-gray-700"
-					>
-						Cụm Rạp
-					</Typography>
-					<Typography
-						variant="body1"
-						className="text-black cursor-pointer hover:text-gray-700"
-					>
-						Tin Tức
-					</Typography>
-					<Typography
-						variant="body1"
-						className="text-black cursor-pointer hover:text-gray-700"
-					>
-						Ứng Dụng
-					</Typography>
+					<img src="path/to/logo.png" alt="Cybersoft Logo" className="h-12" />
 				</div>
 
 				<div className="flex items-center space-x-4">
-					<Typography
-						variant="body2"
-						className="text-black cursor-pointer hover:text-gray-700"
-					>
-						Đăng Nhập
-					</Typography>
-					<Divider orientation="vertical" flexItem className="mx-2" />
-					<Typography
-						variant="body2"
-						className="text-black cursor-pointer hover:text-gray-700"
-					>
-						Đăng Ký
-					</Typography>
+					{currentUser ? (
+						<>
+							<IconButton onClick={handleAvatarClick}>
+								<Avatar src="path/to/avatar.png" alt="User Avatar" />
+							</IconButton>
+							<Menu
+								anchorEl={anchorEl}
+								open={Boolean(anchorEl)}
+								onClose={handleMenuClose}
+							>
+								<MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+							</Menu>
+						</>
+					) : (
+						<>
+							<Typography
+								variant="body2"
+								className="text-black cursor-pointer hover:text-gray-700"
+								onClick={goToLogin} 
+							>
+								Đăng Nhập
+							</Typography>
+							<Divider orientation="vertical" flexItem className="mx-2" />
+							<Typography
+								variant="body2"
+								className="text-black cursor-pointer hover:text-gray-700"
+								onClick={goToRegister}
+							>
+								Đăng Ký
+							</Typography>
+						</>
+					)}
 				</div>
 			</Toolbar>
 		</AppBar>

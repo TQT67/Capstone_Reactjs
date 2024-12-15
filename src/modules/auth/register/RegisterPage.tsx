@@ -114,7 +114,7 @@ const RegisterPage: React.FC = () => {
 				</form>
 
 				<Link href="/auth/login" variant="body2" align="center">
-					Bạn chưa có tài khoản? Đăng nhập
+					Bạn đã có tài khoản? Đăng nhập
 				</Link>
 			</Stack>
 		</div>
